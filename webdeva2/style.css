@@ -413,10 +413,10 @@ iframe {
 
 #rulesContainer {
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    text-align: center; /* Center text inside container */
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
 }
 
     #rulesContainer ul {
@@ -640,16 +640,16 @@ iframe {
         width: 80px;
         height: 150px;
         position: absolute;
-        top: 5%; /* Center fan div vertically */
-        left: 50%; /* Center fan div horizontally */
-        transform-origin: center bottom; /* Adjust rotation origin if needed */
+        top: 5%;
+        left: 50%; 
+        transform-origin: center bottom; 
         border-radius: 5px;
         border-top: solid 2px rgba(0,0,0,.2);
         border-left: solid 3px rgba(255,255,255,.2);
         border-bottom: solid 3px rgba(0,0,0,.2);
         text-align: center;
         box-sizing: border-box;
-        margin-left: -35px; /* Centering horizontally */
+        margin-left: -35px; 
         transform: rotate(0deg);
     }
 
@@ -1004,8 +1004,8 @@ iframe {
     }
 
 .cell-nonplaceable {
-    background-color: rgba(255, 0, 0, 0.3); /* Example color */
-    border: 2px dashed red; /* Optional border for better visibility */
+    background-color: rgba(255, 0, 0, 0.3); 
+    border: 2px dashed red; 
 }
 
 .message-container {
@@ -1014,7 +1014,7 @@ iframe {
 }
 
 .score-report-form {
-    margin-top: 20px; /* Space between the message/button and the form */
+    margin-top: 20px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1027,7 +1027,7 @@ iframe {
     .score-report-form input,
     .score-report-form textarea {
         width: 100%;
-        max-width: 300px; /* Adjust width as needed */
+        max-width: 300px; 
         padding: 8px;
         margin-bottom: 10px;
         border: 1px solid #ccc;
@@ -1052,16 +1052,11 @@ iframe {
 }
 
 .point_container {
-    /*float: right;*/
-    /*    margin: 10px auto;*/
-    /*    width: calc(100px + 30vmin);
-    height: 100vh;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 5px auto;
-    /*    background: #cfccc1;*/
 }
 
 .point {

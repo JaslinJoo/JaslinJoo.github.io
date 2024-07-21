@@ -1,7 +1,11 @@
 const mainB = document.querySelector("#mainBtn");
-const rulesB = document.querySelector(".rulesandmechanicsBtn");
-const historyB = document.querySelector(".historyandevolutionBtn");
-const playB = document.querySelector(".playBtn");
+const rulesB = document.querySelector("#rulesandmechanicsBtn");
+const historyB = document.querySelector("#historyandevolutionBtn");
+const playB = document.querySelector("#playBtn");
+
+const rulesCB = document.querySelector("#rulesCardBtn");
+const historyCB = document.querySelector("#historyCardBtn");
+const playCB = document.querySelector("#playCardBtn");
 
 var allP = document.querySelectorAll("section");
 
@@ -9,8 +13,8 @@ const offlineB = document.querySelector("#offlineBtn");
 const onlineB = document.querySelector("#onlineBtn");
 var rulesP = document.querySelectorAll(".page");
 
-const hamburger = document.getElementById('hamburger');
-const menu = document.getElementById('menu');
+const hamburger = document.getElementById("hamburger");
+const menu = document.getElementById("menu");
 
 hamburger.addEventListener("click", function () {
     menu.classList.toggle("active");
@@ -37,10 +41,19 @@ mainB.addEventListener("click", function () {
 rulesB.addEventListener("click", function () {
     showP(buttonToIndex.rulesandmechanicsBtn);
 });
+rulesCB.addEventListener("click", function () {
+    showP(buttonToIndex.rulesandmechanicsBtn);
+});
 historyB.addEventListener("click", function () {
     showP(buttonToIndex.historyandevolutionBtn);
 });
+historyCB.addEventListener("click", function () {
+    showP(buttonToIndex.historyandevolutionBtn);
+});
 playB.addEventListener("click", function () {
+    showP(buttonToIndex.playBtn);
+});
+playCB.addEventListener("click", function () {
     showP(buttonToIndex.playBtn);
 });
 
@@ -55,7 +68,7 @@ onlineB.addEventListener("click", function () {
 // touch events
 function addTouchEvents(element, callback) {
     element.addEventListener("touchstart", function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         callback();
     });
 }
@@ -73,13 +86,23 @@ addTouchEvents(playB, function () {
     showP(buttonToIndex.playBtn);
 });
 
+addTouchEvents(rulesCB, function () {
+    showP(buttonToIndex.rulesandmechanicsBtn);
+});
+addTouchEvents(historyCB, function () {
+    showP(buttonToIndex.historyandevolutionBtn);
+});
+addTouchEvents(playCB, function () {
+    showP(buttonToIndex.playBtn);
+});
+
+
 addTouchEvents(offlineB, function () {
     toggleRulesP(buttonToPageId.offlineBtn);
 });
 addTouchEvents(onlineB, function () {
     toggleRulesP(buttonToPageId.onlineBtn);
 });
-
 
 function showP(index) {
     // hide page
@@ -181,10 +204,11 @@ cards.forEach(function (card) {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    showP(buttonToIndex["playBtn"]);
+    showP(buttonToIndex.mainBtn);
 
     const audio = document.getElementById("bgm");
     const startMusicButton = document.getElementById("startMusicButton");
+    const pauseMusicButton = document.getElementById("pauseMusicButton");
 
     function playAudio() {
         audio.play();
@@ -197,26 +221,26 @@ document.addEventListener("DOMContentLoaded", function () {
     startMusicButton.addEventListener("click", playAudio);
     pauseMusicButton.addEventListener("click", pauseAudio);
 
-    const flipContainer = document.querySelector('.flip-container');
-    const flip = document.querySelector('.flip');
+    const flipContainer = document.querySelector(".flip-container");
+    const flip = document.querySelector(".flip");
 
     function handleFlip() {
-        flip.classList.toggle('flip-active');
+        flip.classList.toggle("flip-active");
     }
 
     function addEventListeners() {
-        flipContainer.addEventListener('touchstart', handleFlip);
+        flipContainer.addEventListener("touchstart", handleFlip);
     }
 
     function removeEventListeners() {
-        flipContainer.removeEventListener('touchstart', handleFlip);
+        flipContainer.removeEventListener("touchstart", handleFlip);
     }
 
     if (window.innerWidth < 800) {
         addEventListeners();
     }
 
-    window.addEventListener('resize', function () {
+    window.addEventListener("resize", function () {
         if (window.innerWidth < 800) {
             addEventListeners();
         } else {
@@ -226,21 +250,26 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // animation fade in when scroll
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
         if (entry.isIntersecting) {
             entry.target.classList.add("show");
         } else {
             entry.target.classList.remove("show");
         }
-    })
-})
+    });
+});
 
-const hiddenRight = document.querySelectorAll(".hidden-right");
-hiddenRight.forEach((el) => observer.observe(el));
 
-const hiddenLeft = document.querySelectorAll(".hidden-left");
-hiddenLeft.forEach((el) => observer.observe(el));
+var hiddenRight = document.querySelectorAll(".hidden-right");
+hiddenRight.forEach(function (el) {
+    observer.observe(el);
+});
+
+var hiddenLeft = document.querySelectorAll(".hidden-left");
+hiddenLeft.forEach(function (el) {
+    observer.observe(el);
+});
 
 let gameStarted = false;
 
@@ -263,16 +292,14 @@ const board = [
     ["w3", "", "", "l2", "", "", "", "w3", "", "", "", "l2", "", "", "w3"]
 ];
 
-const styleMapping = {
+var styleMapping = {
     w2: "background: rgba(254, 112, 77, 0.4);",
     w3: "background: #fe704d;",
     l2: "background: rgba(4, 147, 181, 0.4);",
     l3: "background: #0493b5;",
-    star: `
-    background-color: #d4ccaf;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24"%3E%3Cpath fill="%23b1a26d" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/%3E%3C/svg%3E");
-    background-size: cover;
-  `
+    star: "background-color: #d4ccaf;" +
+        "background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"%3E%3Cpath fill=\"%23b1a26d\" d=\"M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z\"/%3E%3C/svg%3E');" +
+        "background-size: cover;"
 };
 
 // game board set up
@@ -280,10 +307,11 @@ function setUp() {
     const table = document.createElement("table");
     table.classList.add("board");
 
-    board.forEach(rowData => {
-        const row = document.createElement("tr");
-        rowData.forEach(cellData => {
-            const cell = document.createElement("td");
+    // implement board
+    board.forEach(function (rowData) {
+        var row = document.createElement("tr");
+        rowData.forEach(function (cellData) {
+            var cell = document.createElement("td");
             if (cellData) {
                 cell.style.cssText = styleMapping[cellData];
             }
@@ -333,11 +361,12 @@ const tiles = [
 ];
 
 const tilePool = [];
-tiles.forEach(tile => {
-    for (let i = 0; i < tile.quantity; i++) {
+tiles.forEach(function (tile) {
+    for (var i = 0; i < tile.quantity; i++) {
         tilePool.push({ letter: tile.letter, value: tile.value });
     }
 });
+
 
 // get random tiles ranging from a-""
 function getRandomTile() {
@@ -347,40 +376,37 @@ function getRandomTile() {
 
 const tileElements = document.querySelectorAll(".rack .tile");
 
-tileElements.forEach(tileElement => {
-    const randomTile = getRandomTile();
+// get random tiles
+tileElements.forEach(function (tileElement) {
+    var randomTile = getRandomTile();
     tileElement.setAttribute("data-id", randomTile.letter + randomTile.value);
     tileElement.setAttribute("letter", randomTile.letter);
     tileElement.setAttribute("value", randomTile.value);
     tileElement.textContent = randomTile.letter;
 });
 
-// if game not started yet
-function disableTilesDraggable() {
-    const tiles = document.querySelectorAll(".tile");
 
-    tiles.forEach((tile, index) => {
-        tile.setAttribute("draggable", false);
-    });
-}
 
 // being able to drag tiles
 function makeTilesDraggable() {
     const tiles = document.querySelectorAll(".tile");
 
-    tiles.forEach((tile, index) => {
+    tiles.forEach(function (tile, index) {
         tile.setAttribute("draggable", gameStarted);
         tile.setAttribute("data-id", index);
         tile.addEventListener("dragstart", dragStart);
         tile.addEventListener("dragend", dragEnd);
-        tile.addEventListener("click", () => selectTile(tile));
+        //tile.addEventListener("click", function () {
+        //    selectTile(tile);
+        //});
     });
+
 }
 
 function dragStart(event) {
     event.dataTransfer.setData("text/plain", event.target.getAttribute("data-id"));
     event.dataTransfer.effectAllowed = "move";
-    setTimeout(() => {
+    setTimeout(function () {
         event.target.style.display = "none";
     }, 0);
 }
@@ -395,12 +421,12 @@ function dragEnd(event) {
 // enable cells to accept drops
 function enableCells() {
     const cells = document.querySelectorAll(".board td");
-
-    cells.forEach(cell => {
+    cells.forEach(function (cell) {
         cell.addEventListener("dragover", dragOver);
         cell.addEventListener("drop", drop);
         cell.addEventListener("dragleave", dragLeave);
     });
+
 }
 
 function dragOver(event) {
@@ -417,7 +443,7 @@ function dragLeave(event) {
 function drop(event) {
     event.preventDefault();
     const tileId = event.dataTransfer.getData("text/plain");
-    const tile = document.querySelector(`.tile[data-id="${tileId}"]`);
+    var tile = document.querySelector('.tile[data-id="' + tileId + '"]');
     const targetCell = event.target;
 
     // Ensure the target is a cell (td)
@@ -447,7 +473,6 @@ function drop(event) {
             tile.classList.add("tile-activeWord");
             tile.setAttribute("draggable", false);
         } else {
-            alert("You must place your tile starting from the center or adjacent to an already-placed tile.");
             moveTileToRack(tile);
         }
     } else {
@@ -462,7 +487,10 @@ function moveTileToRack(tile) {
     }
 
     const rackItems = rack.querySelectorAll(".rack-items");
-    let emptyRackItem = Array.from(rackItems).find(item => !item.querySelector(".tile"));
+    var emptyRackItem = Array.from(rackItems).find(function (item) {
+        return !item.querySelector(".tile");
+    });
+
 
     if (emptyRackItem) {
         emptyRackItem.appendChild(tile);
@@ -475,7 +503,7 @@ function moveTileToRack(tile) {
     }
 }
 
-var sec = 2;
+var sec = 30;
 function timer() {
     var timer = setInterval(function () {
         document.getElementById("timer").innerHTML = "00:" + (sec < 10 ? "0" : "") + sec;
@@ -496,39 +524,39 @@ function endGame() {
     const board = document.querySelector(".board");
     board.innerHTML = "";
 
-    const message = score > 200 ? "YOU WIN" : "YOU LOSE";
-    const messageContainer = document.createElement("div");
+    var message = score > 200 ? "YOU WIN" : "YOU LOSE";
+    var messageContainer = document.createElement("div");
     messageContainer.className = "message-container";
-    messageContainer.innerHTML = `
-       <p>${message}</p>
-        <div class="button-style button-container" id="restartBtn">
-            <div class="circle"></div>
-            <p>Restart</p>
-        </div>
-        <form id="scoreReportForm" class="score-report-form">
-            <label for="playerName">Player Name:</label>
-            <input type="text" id="playerName" name="playerName" required>
-            
-            <label for="rating">Rating (1-5 stars):</label>
-            <select id="rating" name="rating" required>
-                <option value="" disabled selected>Select Rating</option>
-                <option value="1">1 Star</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
-            </select>
-            
-            <label for="feedback">Feedback Comments:</label>
-            <textarea id="feedback" name="feedback" rows="4" required></textarea>
-            
-            <label for="suggestions">Suggestions for Improvement:</label>
-            <textarea id="suggestions" name="suggestions" rows="4"></textarea>
-            
-            <button type="submit" class="button-style">Submit</button>
-        </form>
-    `;
+    messageContainer.innerHTML =
+        '<p>' + message + '</p>' +
+        '<div class="button-style button-container" id="restartBtn">' +
+        '<div class="circle"></div>' +
+        '<p>Restart</p>' +
+        '</div>' +
+        '<form id="scoreReportForm" class="score-report-form">' +
+        '<label for="playerName">Player Name:</label>' +
+        '<input type="text" id="playerName" name="playerName" required>' +
+
+        '<label for="rating">Rating (1-5 stars):</label>' +
+        '<select id="rating" name="rating" required>' +
+        '<option value="" disabled selected>Select Rating</option>' +
+        '<option value="1">1 Star</option>' +
+        '<option value="2">2 Stars</option>' +
+        '<option value="3">3 Stars</option>' +
+        '<option value="4">4 Stars</option>' +
+        '<option value="5">5 Stars</option>' +
+        '</select>' +
+
+        '<label for="feedback">Feedback Comments:</label>' +
+        '<textarea id="feedback" name="feedback" rows="4" required></textarea>' +
+
+        '<label for="suggestions">Suggestions for Improvement:</label>' +
+        '<textarea id="suggestions" name="suggestions" rows="4"></textarea>' +
+
+        '<button type="submit" class="button-style">Submit</button>' +
+        '</form>';
     board.appendChild(messageContainer);
+
 
     // Add event listener to restart button
     document.getElementById("restartBtn").addEventListener("click", function () {
@@ -537,19 +565,8 @@ function endGame() {
 
     // Handle form submission
     document.getElementById("scoreReportForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        const playerName = document.getElementById("playerName").value;
-        const comments = document.getElementById("comments").value;
-
-        // Handle the form data, e.g., send it to a server or store locally
-        console.log("Player Name:", playerName);
-        console.log("Comments:", comments);
-
-        // Optionally, show a confirmation message
+        event.preventDefault(); 
         alert("Thank you for your feedback!");
-
-        // Optionally, reset the form
         this.reset();
     });
 
@@ -560,8 +577,6 @@ const startB = document.getElementById("startBtn");
 const shuffleB = document.getElementById("shuffleBtn");
 const swapB = document.getElementById("swapBtn");
 const submitB = document.getElementById("submitBtn");
-
-let selectedTile = null;
 
 // start btn
 startB.addEventListener("click", function () {
@@ -590,59 +605,50 @@ function shuffleRack() {
         return;
     }
 
-    // Get all rack items
-    const rackItems = Array.from(rack.querySelectorAll(".rack-items"));
+    // get all rack items
+    var rackItems = Array.prototype.slice.call(rack.querySelectorAll(".rack-items"));
 
-    // Collect all tiles from rack items
+    // collect all tiles from rack items
     let allTiles = [];
-    rackItems.forEach(item => {
-        const tiles = Array.from(item.querySelectorAll(".tile"));
+    rackItems.forEach(function (item) {
+        var tiles = Array.prototype.slice.call(item.querySelectorAll(".tile"));
         allTiles = allTiles.concat(tiles);
     });
 
-    // Shuffle tiles
+
+    // shuffle tiles
     const shuffledTiles = shuffle(allTiles);
 
-    // Clear all rack items but not the rack itself
-    rackItems.forEach(item => {
+    // clear all rack items but not the rack itself
+    rackItems.forEach(function (item) {
         item.innerHTML = "";
     });
 
-    // Re-append shuffled tiles to rack items
-    shuffledTiles.forEach(tile => {
-        const rackItem = rackItems.find(item => !item.querySelector(".tile"));
+    // place shuffled tiles bck to rack
+    shuffledTiles.forEach(function (tile) {
+        var rackItem = rackItems.find(function (item) {
+            return !item.querySelector(".tile");
+        });
         if (rackItem) {
             rackItem.appendChild(tile);
         }
     });
 
-    // Ensure tiles are still draggable
     makeTilesDraggable();
 }
 
 // Shuffle button event listener
 shuffleB.addEventListener("click", shuffleRack);
 
-function swapTiles(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
-}
-
 swapB.addEventListener("click", function () {
     for (let i = 1; i <= 7; i++) {
         let randomTile = tiles[Math.floor(Math.random() * tiles.length)];
 
-        const rackSpot = document.querySelector(`.rack-items:nth-child(${i})`);
+        var rackSpot = document.querySelector('.rack-items:nth-child(' + i + ')');
         if (rackSpot) {
-            rackSpot.innerHTML = `<div class="tile" letter="${randomTile.letter}" value="${randomTile.value}"></div>`;
+            rackSpot.innerHTML = '<div class="tile" letter="' + randomTile.letter + '" value="' + randomTile.value + '"></div>';
         }
+
     }
     makeTilesDraggable();
 });
@@ -651,8 +657,8 @@ swapB.addEventListener("click", function () {
 const centerBoard = { x: 7, y: 7 };
 // Function to check if a tile can be placed
 function canPlaceTile(x, y) {
-    const board = document.querySelector(".board");
-    const targetCell = board.querySelector(`tr:nth-child(${y + 1}) td:nth-child(${x + 1})`);
+    var board = document.querySelector(".board");
+    var targetCell = board.querySelector('tr:nth-child(' + (y + 1) + ') td:nth-child(' + (x + 1) + ')');
 
     if (!targetCell) return false; // Check if the target cell is on the board
 
@@ -667,12 +673,13 @@ function canPlaceTile(x, y) {
         { x: centerBoard.x, y: centerBoard.y + 1 },
     ];
 
-    if (!document.querySelector(`tr:nth-child(${centerBoard.y + 1}) td:nth-child(${centerBoard.x + 1})`).hasChildNodes()) {
-        return adjacentCells.some(cell => {
-            const cellElement = board.querySelector(`tr:nth-child(${cell.y + 1}) td:nth-child(${cell.x + 1})`);
+    if (!document.querySelector('tr:nth-child(' + (centerBoard.y + 1) + ') td:nth-child(' + (centerBoard.x + 1) + ')').hasChildNodes()) {
+        return adjacentCells.some(function (cell) {
+            var cellElement = board.querySelector('tr:nth-child(' + (cell.y + 1) + ') td:nth-child(' + (cell.x + 1) + ')');
             return cellElement && cellElement.hasChildNodes();
         });
     }
+
 
     const neighbors = [
         { x: x - 1, y: y },
@@ -681,10 +688,11 @@ function canPlaceTile(x, y) {
         { x: x, y: y + 1 }
     ];
 
-    return neighbors.some(cell => {
-        const cellElement = board.querySelector(`tr:nth-child(${cell.y + 1}) td:nth-child(${cell.x + 1})`);
+    return neighbors.some(function (cell) {
+        var cellElement = board.querySelector('tr:nth-child(' + (cell.y + 1) + ') td:nth-child(' + (cell.x + 1) + ')');
         return cellElement && cellElement.hasChildNodes();
     });
+
 }
 
 function getCellCoordinates(cell) {
@@ -694,14 +702,17 @@ function getCellCoordinates(cell) {
 }
 
 function getLetterValue(letter) {
-    const tile = tiles.find(tile => tile.letter === letter.toUpperCase());
+    var tile = tiles.find(function (tile) {
+        return tile.letter === letter.toUpperCase();
+    });
     return tile ? tile.value : 0;
 }
+
 
 // Function to identify tiles on the board
 function getTilesOnBoard() {
     const tiles = [];
-    document.querySelectorAll(".board-container td.cell-occupied").forEach(cell => {
+    document.querySelectorAll(".board-container td.cell-occupied").forEach(function (cell) {
         tiles.push({
             letter: cell.textContent.trim().toUpperCase(),
             value: getLetterValue(cell.textContent.trim().toUpperCase()),
@@ -709,6 +720,7 @@ function getTilesOnBoard() {
             y: parseInt(cell.getAttribute("data-y"), 10)
         });
     });
+
     return tiles;
 }
 
@@ -728,11 +740,17 @@ function getWordsFromTiles(tiles) {
     }
 
     // horizontal check - sort by row then col
-    tiles.sort((a, b) => a.y - b.y || a.x - b.x); 
+    tiles.sort(function (a, b) {
+        if (a.y !== b.y) {
+            return a.y - b.y;
+        }
+        return a.x - b.x;
+    });
+
     let currentWord = "";
     let currentTiles = [];
     let lastY = -1;
-    tiles.forEach(tile => {
+    tiles.forEach(function (tile) {
         if (currentWord.length > 0 && tile.y !== lastY) {
             // end of horizontal
             addWord(currentWord, currentTiles);
@@ -743,6 +761,7 @@ function getWordsFromTiles(tiles) {
         currentTiles.push(tile);
         lastY = tile.y;
     });
+
     if (currentWord.length > 0) {
         // end of last horizontal word
         addWord(currentWord, currentTiles);
@@ -752,8 +771,14 @@ function getWordsFromTiles(tiles) {
     currentTiles = [];
     let lastX = -1;
     // vertical check - sort by col then row
-    tiles.sort((a, b) => a.x - b.x || a.y - b.y); 
-    tiles.forEach(tile => {
+    tiles.sort(function (a, b) {
+        if (a.x !== b.x) {
+            return a.x - b.x;
+        }
+        return a.y - b.y;
+    });
+
+    tiles.forEach(function (tile) {
         if (currentWord.length > 0 && tile.x !== lastX) {
             // end of vertical 
             addWord(currentWord, currentTiles);
@@ -764,6 +789,7 @@ function getWordsFromTiles(tiles) {
         currentTiles.push(tile);
         lastX = tile.x;
     });
+
     if (currentWord.length > 0) {
         // end of last vertical word
         addWord(currentWord, currentTiles);
@@ -779,11 +805,14 @@ function updatePointsAndWords() {
     const words = getWordsFromTiles(tiles); 
     const wordPoints = [];
 
-    words.forEach(({ word, tiles }) => {
-        let wordValue = 0;
-        let multiplier = 1;
-        tiles.forEach(tile => {
-            const letterValue = getLetterValue(tile.letter);
+    words.forEach(function (item) {
+        var word = item.word;
+        var tiles = item.tiles;
+        var wordValue = 0;
+        var multiplier = 1;
+
+        tiles.forEach(function (tile) {
+            var letterValue = getLetterValue(tile.letter);
             wordValue += letterValue;
             // multiplier
             if (tile.special === "w2") multiplier *= 2;
@@ -791,15 +820,42 @@ function updatePointsAndWords() {
             if (tile.special === "l2") wordValue += letterValue;
             if (tile.special === "l3") wordValue += 2 * letterValue;
         });
+
+        wordPoints.push({
+            word: word,
+            value: wordValue * multiplier
+        });
+    });
+    words.forEach(function (item) {
+        var word = item.word;
+        var tiles = item.tiles;
+        var wordValue = 0;
+        var multiplier = 1;
+
+        tiles.forEach(function (tile) {
+            var letterValue = getLetterValue(tile.letter);
+            wordValue += letterValue;
+            // multiplier
+            if (tile.special === "w2") multiplier *= 2;
+            if (tile.special === "w3") multiplier *= 3;
+            if (tile.special === "l2") wordValue += letterValue;
+            if (tile.special === "l3") wordValue += 2 * letterValue;
+        });
+
         wordPoints.push({
             word: word,
             value: wordValue * multiplier
         });
     });
 
-    const totalScore = wordPoints.reduce((total, wordPoint) => total + wordPoint.value, 0);
-    const scoreElement = document.querySelector(".point");
-    scoreElement.textContent = `${totalScore}`;
+
+    var totalScore = wordPoints.reduce(function (total, wordPoint) {
+        return total + wordPoint.value;
+    }, 0);
+
+    var scoreElement = document.querySelector(".point");
+    scoreElement.textContent = totalScore;
+
 }
 
 submitB.addEventListener("click", function () {
