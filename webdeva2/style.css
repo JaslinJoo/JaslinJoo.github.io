@@ -1072,6 +1072,11 @@ iframe {
         content: "Score: ";
     }
 
+    #qrcode{
+        width: 150px;
+        height: 150px;
+    }
+
 /* for desktop > 800px */
 @media screen and (min-width: 800px) {
     /* nav */
@@ -1285,6 +1290,14 @@ iframe {
         padding: 0px;
     }
 
+        #mainpageDiv img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 10px;
+            width: 300px;
+            height: 150px   ;
+        }
     .card {
         height: 20vh;
         width: 100%;
